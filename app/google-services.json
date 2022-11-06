@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "905514072551",
+    "project_id": "memapp-5089e",
+    "storage_bucket": "memapp-5089e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905514072551:android:b6be5f6ee2b6ccb3bb2542",
+        "android_client_info": {
+          "package_name": "com.pk.memapp20"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905514072551-9fpg0qslkbtm0kgd0trdcvqjdubmf5hi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABNU4CvbsuPJDr33-9K6czzM_ZqIz_tLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905514072551-9fpg0qslkbtm0kgd0trdcvqjdubmf5hi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
