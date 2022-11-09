@@ -23,12 +23,17 @@ public class CreateActivity extends AppCompatActivity {
     private EditText correo;
     private EditText contrasena;
     private EditText name;
+    private EditText confirmPass;
     private MediaPlayer name_audio;
     private MediaPlayer email;
     private MediaPlayer pass;
     private MediaPlayer both;
     private MediaPlayer welcome;
     private MediaPlayer another;
+    private MediaPlayer confirm;
+    private MediaPlayer confirmfield;
+
+
 
 
 
@@ -39,9 +44,12 @@ public class CreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create);
 
         mAuth= FirebaseAuth.getInstance();
+
         correo=findViewById(R.id.correos);
         contrasena=findViewById(R.id.passs);
         name=findViewById(R.id.name);
+        confirmPass=findViewById(R.id.passconfirm);
+
 
         name_audio = MediaPlayer.create(this,R.raw.name);
         email = MediaPlayer.create(this,R.raw.email);
@@ -49,7 +57,8 @@ public class CreateActivity extends AppCompatActivity {
         both=MediaPlayer.create(this,R.raw.emptyboth);
         welcome=MediaPlayer.create(this,R.raw.welcome);
         another=MediaPlayer.create(this,R.raw.anotheraccount);
-
+        confirm=MediaPlayer.create(this,R.raw.passdif);
+        confirmfield=MediaPlayer.create(this,R.raw.passdif);
 
     }
 
@@ -61,7 +70,7 @@ public class CreateActivity extends AppCompatActivity {
 
 
     public void registrarUsuario(View view){
-        if (!name.getText().toString().trim().isEmpty() && !correo.getText().toString().trim().isEmpty() && !contrasena.getText().toString().trim().isEmpty()) {
+        if (!name.getText().toString().trim().isEmpty() && !correo.getText().toString().trim().isEmpty() && !contrasena.getText().toString().trim().isEmpty() && confirmPass.getText().toString().trim().equals(contrasena.getText().toString().trim())) {
             mAuth.createUserWithEmailAndPassword(correo.getText().toString(), contrasena.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -83,6 +92,14 @@ public class CreateActivity extends AppCompatActivity {
                         }
                     });
         }else{
+            if (!confirmPass.getText().toString().trim().equals(contrasena.getText().toString().trim())){
+                confirm.start();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
             if(name.getText().toString().trim().isEmpty()) {
                 name_audio.start();
@@ -103,13 +120,20 @@ public class CreateActivity extends AppCompatActivity {
             }
 
             if(contrasena.getText().toString().trim().isEmpty()) {
-                pass.start();
+                if(confirmPass.getText().toString().trim().isEmpty()) {
+                    pass.start();
+                }else if(!confirmPass.getText().toString().trim().isEmpty()){
+                    confirmfield.start();
+
+                }
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+
+
         }
 
     }
