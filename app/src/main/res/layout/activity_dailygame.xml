@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dailygame">
+
+    <TextView
+        android:id="@+id/id2"
+        style="@style/TEXT"
+        android:layout_width="167dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Daily Objects"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text"
+        style="@style/TEXT"
+        android:layout_width="340dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="122dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Which object is used to brush the teeth?"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/ventilador"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button"
+        style="@style/BUTTON"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:onClick="irDaily"
+        android:text="GO BACK"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/again"
+        style="@style/BUTTON"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="103dp"
+        android:layout_marginBottom="100dp"
+        android:layout_weight="1"
+        android:onClick="irDailyGame"
+        android:text="PLAY AGAIN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="90dp"
+        app:layout_constraintEnd_toStartOf="@+id/gafas"
+        app:layout_constraintHorizontal_bias="0.615"
+        app:layout_constraintStart_toEndOf="@+id/llave"
+        app:layout_constraintTop_toBottomOf="@+id/ventilador"
+        app:srcCompat="@drawable/jreloj" />
+
+    <ImageView
+        android:id="@+id/cepillo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="268dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:srcCompat="@drawable/jcepillo" />
+
+    <ImageView
+        android:id="@+id/gafas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paraguas"
+        app:srcCompat="@drawable/jgafas" />
+
+    <ImageView
+        android:id="@+id/paraguas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="316dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/jparaguas" />
+
+    <ImageView
+        android:id="@+id/llave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cepillo"
+        app:srcCompat="@drawable/jllave" />
+
+    <ImageView
+        android:id="@+id/ventilador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="214dp"
+        android:layout_marginEnd="86dp"
+        app:layout_constraintEnd_toStartOf="@+id/paraguas"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toEndOf="@+id/cepillo"
+        app:layout_constraintTop_toBottomOf="@+id/id2"
+        app:srcCompat="@drawable/jventilador" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,9 @@ package com.pk.memapp20;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -29,11 +31,23 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer pass;
     private MediaPlayer both;
     private MediaPlayer welcome;
+    SharedPreferences settings;
+    SharedPreferences.Editor editor;
+    boolean isLoged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        settings=getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        isLoged =settings.getBoolean("loged",false);
+
+        if (isLoged){
+            //Intent i=new Intent(this,HomeActivity.class);
+           // startActivity(i);
+        }
         setContentView(R.layout.activity_main);
+
+
 
         mAuth=FirebaseAuth.getInstance();
         correo=findViewById(R.id.correom);
@@ -59,12 +73,17 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                editor= settings.edit();
+                                editor.putBoolean("loged",true);
+                                editor.putBoolean("first",true);
+                                editor.apply();
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                                 startActivity(i);
                                 welcome.start();
+
                                 //updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.

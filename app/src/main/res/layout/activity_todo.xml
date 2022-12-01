@@ -53,8 +53,10 @@
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="648dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add"
             android:layout_width="wrap_content"
+            style="@style/BUTTON"
             android:layout_height="wrap_content"
             android:onClick="addItemToList"
             android:text="Add"
@@ -69,15 +71,16 @@
         android:layout_height="354dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="117dp"
-        android:layout_marginBottom="260dp"
+        android:layout_marginTop="91dp"
+        android:layout_marginBottom="286dp"
         app:layout_constraintBottom_toTopOf="@+id/id_bottom_section"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ListView>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
+        style="@style/BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
@@ -88,9 +91,10 @@
         android:text="GO BACK" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/mic_in_todo"
         android:layout_width="80dp"
         android:layout_height="69dp"
+        android:onClick="Hablar"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"

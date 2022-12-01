@@ -21,6 +21,10 @@
         <item name="android:background">#232323</item>
     </style>
 
+    <style name="MICMIC">
+        <item name="android:fillColor">#fff</item>
+    </style>
+
     <style name="TEXT">
         <item name="android:textColor">#CFCFCF</item>
     </style>

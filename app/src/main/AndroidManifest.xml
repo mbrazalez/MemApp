@@ -18,6 +18,27 @@
         android:theme="@style/Theme.Light"
         tools:targetApi="31">
         <activity
+            android:name=".dailygame"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".tutorial"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".todo_apu"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ToDoListActivity"
             android:exported="false"
             android:label="@string/title_activity_to_do_list"
