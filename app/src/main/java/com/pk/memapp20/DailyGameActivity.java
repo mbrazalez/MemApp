@@ -1,7 +1,6 @@
 package com.pk.memapp20;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class dailygame extends AppCompatActivity {
+public class DailyGameActivity extends AppCompatActivity {
     Random rand;
     int chosen;
     ImageView cepillo;
@@ -230,7 +229,7 @@ public class dailygame extends AppCompatActivity {
     }
 
     public void irDailyGame(View view){
-        Intent i=new Intent(this, dailygame.class);
+        Intent i=new Intent(this, DailyGameActivity.class);
         startActivity(i);
     }
 }

@@ -14,7 +14,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 
@@ -102,7 +101,7 @@ public class HomeActivity extends AppCompatActivity{
                             editor.putBoolean("first",false);
                             editor.apply();
                             finish();
-                            Intent k=new Intent(HomeActivity.this,tutorial.class);
+                            Intent k=new Intent(HomeActivity.this, TutorialActivity.class);
                             startActivity(k);
 
                         }
@@ -272,7 +271,7 @@ public class HomeActivity extends AppCompatActivity{
         editor.putBoolean("first",false);
         editor.apply();
 
-        Intent i=new Intent(HomeActivity.this, tutorial.class);
+        Intent i=new Intent(HomeActivity.this, TutorialActivity.class);
         startActivity(i);
     }
 
@@ -291,6 +290,15 @@ public class HomeActivity extends AppCompatActivity{
         editor.apply();
 
         Intent i=new Intent(this, todo_apu.class);
+        startActivity(i);
+    }
+
+    public void irMaps(View view){
+        editor= sharedPreferences.edit();
+        editor.putBoolean("first",false);
+        editor.apply();
+
+        Intent i=new Intent(this, MapsMenuActivity.class);
         startActivity(i);
     }
 
