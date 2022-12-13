@@ -283,6 +283,14 @@ public class HomeActivity extends AppCompatActivity{
         Intent i=new Intent(HomeActivity.this, HomeActivity.class);
         startActivity(i);
     }
+    public void irTrain(View view){
+        editor= sharedPreferences.edit();
+        editor.putBoolean("first",false);
+        editor.apply();
+
+        Intent i=new Intent(this, TrainBrainActivity.class);
+        startActivity(i);
+    }
 
     public void irCalendar(View view){
         editor= sharedPreferences.edit();
@@ -290,6 +298,15 @@ public class HomeActivity extends AppCompatActivity{
         editor.apply();
 
         Intent i=new Intent(this, todo_apu.class);
+        startActivity(i);
+    }
+
+    public void irPeople(View view){
+        editor= sharedPreferences.edit();
+        editor.putBoolean("first",false);
+        editor.apply();
+
+        Intent i=new Intent(this, MyPeopleActivity.class);
         startActivity(i);
     }
 
@@ -301,7 +318,4 @@ public class HomeActivity extends AppCompatActivity{
         Intent i=new Intent(this, MapsMenuActivity.class);
         startActivity(i);
     }
-
-
-
 }

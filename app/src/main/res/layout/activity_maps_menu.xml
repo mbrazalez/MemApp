@@ -69,7 +69,7 @@
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:onClick="irSeeLocation"
-        android:text="MY LOCATION"
+        android:text="SAVED LOCATIONS"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

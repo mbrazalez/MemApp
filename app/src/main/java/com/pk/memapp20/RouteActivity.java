@@ -7,11 +7,18 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.directions.route.AbstractRouting;
@@ -32,14 +39,18 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class RouteActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener, RoutingListener {
-
+    EditText txtStart, txtEnd;
     //google map object
     private GoogleMap mMap;
+    StringBuilder stringBuilder = new StringBuilder();
+    StringBuilder stringBuilder2 = new StringBuilder();
 
     //current and destination location objects
     Location myLocation = null;
@@ -53,12 +64,20 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
 
     //polyline object
     private List<Polyline> polylines = null;
+    String listLocations;
+    String listLtLng;
+    int count;
+
+    SharedPreferences settings;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
-
+        txtStart=findViewById(R.id.txtStartAddress);
+        txtEnd=findViewById(R.id.txtEndAddress);
+        count=0;
         //request location permission.
         requestPermision();
 
@@ -66,6 +85,8 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        settings=getSharedPreferences("MODE", MODE_PRIVATE);
     }
 
     private void requestPermision() {
@@ -119,9 +140,13 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
 
                 myLocation=location;
                 LatLng ltlng=new LatLng(location.getLatitude(),location.getLongitude());
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-                        ltlng, 16f);
-                mMap.animateCamera(cameraUpdate);
+                getCityStart(ltlng);
+                if (count==0) {
+                    count++;
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
+                            ltlng, 16f);
+                    mMap.animateCamera(cameraUpdate);
+                }
             }
         });
 
@@ -131,7 +156,7 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
             public void onMapClick(LatLng latLng) {
 
                 end=latLng;
-
+                getCityEnd(latLng);
                 mMap.clear();
 
                 start=new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
@@ -247,9 +272,106 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         Findroutes(start,end);
 
     }
+    private void getCityStart(LatLng myLatLng){
+        Geocoder geocoder=new Geocoder(RouteActivity.this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(myLatLng.latitude, myLatLng.longitude, 1);
+            String address=addresses.get(0).getAddressLine(0);
+            txtStart.setText(""+address);
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getCityEnd(LatLng myLatLng){
+        Geocoder geocoder=new Geocoder(RouteActivity.this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(myLatLng.latitude, myLatLng.longitude, 1);
+            String address=addresses.get(0).getAddressLine(0);
+            txtEnd.setText(""+address);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void irMaps(View view){
         Intent i=new Intent(this, MapsMenuActivity.class);
         startActivity(i);
+    }
+
+    public void saveLocation(String aliasLocation, LatLng lat){
+
+        listLocations= settings.getString("locations","");
+        listLtLng= settings.getString("latlng","");
+
+        stringBuilder.append(listLocations);
+        stringBuilder2.append(listLtLng);
+
+        stringBuilder.append(aliasLocation);
+        stringBuilder.append(",");
+
+        stringBuilder2.append(lat.latitude);
+        stringBuilder2.append(",");
+        stringBuilder2.append(lat.longitude);
+        stringBuilder2.append(",");
+
+
+
+        editor=settings.edit();
+        editor.putString("locations",stringBuilder.toString());
+        editor.putString("latlng",stringBuilder2.toString());
+        editor.commit();
+    }
+
+    public void addNameLocationStart(View view){
+        AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Introduce location's name");
+                final EditText input=new EditText(this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+                builder.setPositiveButton("Add location", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        if (start!=null){
+                            saveLocation(input.getText().toString().trim(), start);
+                            Toast.makeText(RouteActivity.this, "Location saved correctly", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(RouteActivity.this, "Please introduce a valid location", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.create().show();
+    }
+
+    public void addNameLocationEnd(View view){
+        AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Introduce location's name");
+        final EditText input=new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+        builder.setPositiveButton("Add location", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                if (end!=null) {
+                    saveLocation(input.getText().toString().trim(), end);
+                    Toast.makeText(RouteActivity.this, "Location saved correctly", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(RouteActivity.this, "Please introduce a valid location", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.create().show();
     }
 }
